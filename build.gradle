@@ -9,6 +9,7 @@ plugins {
     id 'com.android.library' version '7.4.0' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.21' apply false
 }
+
 ext {
     activityVersion = '1.6.1'
     appCompatVersion = '1.6.0'

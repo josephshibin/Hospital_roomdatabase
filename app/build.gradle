@@ -2,14 +2,16 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id "kotlin-parcelize"
+
 }
 
 android {
-    namespace 'com.example.notetakeingapplication'
+    namespace 'com.example.hospital_roomdatabase'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.notetakeingapplication"
+        applicationId "com.example.hospital_roomdatabase"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -34,6 +36,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -45,6 +50,8 @@ dependencies {
 
     // Room components
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 

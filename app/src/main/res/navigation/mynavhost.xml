@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mynavhost"
+    app:startDestination="@id/hospitalFragment2">
+    <fragment
+        android:id="@+id/hospitalFragment2"
+        android:name="com.example.hospital_roomdatabase.fragment.list.HospitalFragment"
+        android:label="Hospital"
+        tools:layout="@layout/fragment_hospital" >
+        <action
+            android:id="@+id/action_hospitalFragment2_to_hospitalAddFragment"
+            app:destination="@id/hospitalAddFragment" />
+        <action
+            android:id="@+id/action_hospitalFragment2_to_editFragment"
+            app:destination="@id/editFragment" />
+        <action
+            android:id="@+id/action_hospitalFragment2_to_patientsFragment"
+            app:destination="@id/patientsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hospitalAddFragment"
+        android:name="com.example.hospital_roomdatabase.fragment.add.HospitalAddFragment"
+        android:label="Add Hospital"
+        tools:layout="@layout/fragment_hospital_add" >
+        <action
+            android:id="@+id/action_hospitalAddFragment_to_hospitalFragment2"
+            app:destination="@id/hospitalFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.hospital_roomdatabase.fragment.edit.UpdateFragment"
+        android:label="Update" >
+        <action
+            android:id="@+id/action_editFragment_to_hospitalFragment2"
+            app:destination="@id/hospitalFragment2"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/patientsFragment"
+        android:name="com.example.hospital_roomdatabase.fragment.list.PatientsFragment"
+        android:label="fragment_patients"
+        tools:layout="@layout/fragment_patients" />
+</navigation>
