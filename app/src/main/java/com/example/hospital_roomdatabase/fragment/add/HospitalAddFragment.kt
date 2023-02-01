@@ -9,12 +9,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.hospital_roomdatabase.R
-import com.example.hospital_roomdatabase.data.HospitalEntity
-import com.example.hospital_roomdatabase.data.HospitalViewModel
+import com.example.hospital_roomdatabase.Database.HospitalEntity
+import com.example.hospital_roomdatabase.Database.HospitalViewModel
 
 
 class HospitalAddFragment : Fragment() {
@@ -78,6 +77,6 @@ class HospitalAddFragment : Fragment() {
       }
   }
   private fun isCheck(name:String, spec:String, loc:String): Boolean {
-      return !(TextUtils.isEmpty(name) && TextUtils.isEmpty(spec) && TextUtils.isEmpty(loc))
+      return !(TextUtils.isEmpty(name) || TextUtils.isEmpty(spec) || TextUtils.isEmpty(loc))
   }
 }

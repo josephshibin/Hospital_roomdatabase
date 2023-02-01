@@ -35,16 +35,17 @@ class UpdateFragment : Fragment() {
        //SharedViewModel (getting back the data)
         val  model = ViewModelProvider(this).get(SharedViewModel::class.java)
         model.currentHospitaldetails.observe(viewLifecycleOwner, Observer {
-            hospitalName.setText(it.hospitalName)
-            hospitalLocation.setText(it.location)
-          hospitalSpeciality.setText(it.speciality)
+//            hospitalName.setText(it.hospitalName)
+//            hospitalLocation.setText(it.location)
+//          hospitalSpeciality.setText(it.speciality)
+//
+//            name=it.hospitalName.toString()
 
-            name=it.hospitalName.toString()
             Log.i("data",it.toString())
-
-
+//
+//
         })
-      //  Log.i("hi","fdsffffffffd")
+
 
 
         return  view

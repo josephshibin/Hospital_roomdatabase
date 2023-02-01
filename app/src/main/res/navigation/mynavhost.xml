@@ -41,5 +41,17 @@
         android:id="@+id/patientsFragment"
         android:name="com.example.hospital_roomdatabase.fragment.list.PatientsFragment"
         android:label="fragment_patients"
-        tools:layout="@layout/fragment_patients" />
+        tools:layout="@layout/fragment_patients" >
+        <action
+            android:id="@+id/action_patientsFragment_to_patientsAddFragment"
+            app:destination="@id/patientsAddFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/patientsAddFragment"
+        android:name="com.example.hospital_roomdatabase.fragment.add.PatientsAddFragment"
+        android:label="Add Patients" >
+        <action
+            android:id="@+id/action_patientsAddFragment_to_patientsFragment"
+            app:destination="@id/patientsFragment" />
+    </fragment>
 </navigation>
