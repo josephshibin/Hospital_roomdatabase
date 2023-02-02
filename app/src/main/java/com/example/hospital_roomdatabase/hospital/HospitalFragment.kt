@@ -1,9 +1,10 @@
-package com.example.hospital_roomdatabase.fragment.list
+package com.example.hospital_roomdatabase.hospital
 
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -13,8 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hospital_roomdatabase.R
 import com.example.hospital_roomdatabase.adapter.HospitalAdapter
-import com.example.hospital_roomdatabase.Database.HospitalViewModel
-import com.example.hospital_roomdatabase.model.SharedViewModel
+import com.example.hospital_roomdatabase.model.HospitalModel
+import com.example.hospital_roomdatabase.model.HospitalViewModel
+import com.example.hospital_roomdatabase.model.SharedViewModelForHospital
 
 
 class HospitalFragment : Fragment() {
@@ -23,6 +25,10 @@ class HospitalFragment : Fragment() {
     private  lateinit var hospitalViewModel: HospitalViewModel
 
     private lateinit var recyclerView:RecyclerView
+
+
+    // initializing shared view model
+    private val sharedViewModel: SharedViewModelForHospital by activityViewModels()
 
 
 
@@ -36,7 +42,7 @@ class HospitalFragment : Fragment() {
        val view = inflater.inflate(R.layout.fragment_hospital, container, false)
 
 //        //RecyclerView
-        val adapter=HospitalAdapter(this){index-> dataEdit(index)}
+        val adapter=HospitalAdapter(this){index-> setHospitalInfo(index)}
         recyclerView=view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context);
         recyclerView.adapter=adapter
@@ -93,21 +99,10 @@ class HospitalFragment : Fragment() {
                 ||super.onOptionsItemSelected(item)
     }
 
-    fun dataEdit(position:Int){
-        Log.i("po",position.toString())
-        // sharedViewModel
-            val model = ViewModelProvider(this).get(SharedViewModel::class.java)
-        hospitalViewModel = ViewModelProvider(this).get(HospitalViewModel::class.java)
-        hospitalViewModel.readAllData.observe(viewLifecycleOwner
-            , Observer { it->
-            model.setHospitalDetails(it[position])
-            Log.i("it", it[position].toString())
-        } )
 
 
-
-
-
+    private fun setHospitalInfo(currentItemToEdit:HospitalModel){
+        sharedViewModel.setHospitalDetails(currentItemToEdit)
     }
 
 

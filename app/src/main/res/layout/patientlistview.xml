@@ -7,7 +7,7 @@
     android:padding="10dp">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardViewForPatients"
+        android:id="@+id/cardViewForPatients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 

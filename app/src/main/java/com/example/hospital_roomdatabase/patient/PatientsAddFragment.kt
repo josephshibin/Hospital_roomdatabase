@@ -1,4 +1,4 @@
-package com.example.hospital_roomdatabase.fragment.add
+package com.example.hospital_roomdatabase.patient
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -12,11 +12,13 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.hospital_roomdatabase.R
-import com.example.hospital_roomdatabase.Database.PatientViewModel
-import com.example.hospital_roomdatabase.Database.PatientsEntity
+import com.example.hospital_roomdatabase.model.PatientModel
+
+
+import com.example.hospital_roomdatabase.model.PatientViewModel
 
 class PatientsAddFragment : Fragment() {
-    private  lateinit var patientViewModel:PatientViewModel
+    private  lateinit var patientViewModel: PatientViewModel
 
     private lateinit var  patientName:EditText
     lateinit var  patientGender:EditText
@@ -52,7 +54,7 @@ class PatientsAddFragment : Fragment() {
 
         if(isCheck(name,gen,add)){
             // createing HospitalEntity object
-            val patient= PatientsEntity(0,name,gen,add)
+            val patient= PatientModel(0,name,gen,add)
             // adding data to database
             patientViewModel.insert(patient)
             Toast.makeText(context,"data added", Toast.LENGTH_SHORT).show()

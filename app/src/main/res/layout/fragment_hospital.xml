@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.hospital_roomdatabase.fragment.list.HospitalFragment">
+    tools:context="com.example.hospital_roomdatabase.hospital.HospitalFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

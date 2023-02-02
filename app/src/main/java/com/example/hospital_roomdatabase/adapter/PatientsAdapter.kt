@@ -5,22 +5,25 @@ import android.view.View
 import android.view.ViewGroup
 
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.navigation.fragment.findNavController
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hospital_roomdatabase.R
-import com.example.hospital_roomdatabase.Database.PatientsEntity
+
+import com.example.hospital_roomdatabase.model.PatientModel
+import com.example.hospital_roomdatabase.patient.PatientsFragment
 
 
+class PatientsAdapter(private val activity: PatientsFragment, val  setPatientInfo:(PatientModel)->Unit): RecyclerView.Adapter<PatientsAdapter.MyViewHolder>() {
 
-
-class PatientsAdapter(): RecyclerView.Adapter<PatientsAdapter.MyViewHolder>() {
-
-    var patientsList = emptyList<PatientsEntity>()
+    var patientsList = emptyList<PatientModel>()
 
 
     inner  class MyViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
 
         var patientName: TextView =itemView.findViewById(R.id.textViewPatientsName)
+        var cardView: CardView =itemView.findViewById(R.id.cardViewForPatients)
 
 
 
@@ -44,6 +47,13 @@ class PatientsAdapter(): RecyclerView.Adapter<PatientsAdapter.MyViewHolder>() {
 
         val currentItem=patientsList[position]
         holder.patientName.text=currentItem.patientName.toString()
+        holder.cardView.setOnClickListener {
+
+            setPatientInfo(currentItem)
+
+            activity.findNavController().navigate(R.id.action_patientsFragment_to_patientDetailsFragment)
+
+        }
 
 
 
@@ -52,12 +62,12 @@ class PatientsAdapter(): RecyclerView.Adapter<PatientsAdapter.MyViewHolder>() {
     }
 
 
-    fun setData(hospital:List<PatientsEntity>){
+    fun setData(hospital:List<PatientModel>){
         this.patientsList=hospital
         notifyItemInserted( patientsList.size+1)
     }
 
-    fun getPatients(position : Int) : PatientsEntity {
+    fun getPatients(position : Int) : PatientModel {
 
         return patientsList[position]
 

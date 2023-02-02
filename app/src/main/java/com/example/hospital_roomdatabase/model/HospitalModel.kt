@@ -1,4 +1,4 @@
-package com.example.hospital_roomdatabase.Database
+package com.example.hospital_roomdatabase.model
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 //line 12 and 21 is for safeargs
 @Parcelize
 @Entity(tableName = "hospital_table")
- data class HospitalEntity (
+ data class HospitalModel (
     @PrimaryKey(autoGenerate = true)
      val id:Int,
      val hospitalName:String,
@@ -20,12 +20,4 @@ import kotlinx.parcelize.Parcelize
 ):Parcelable
 
 
-@Entity(tableName = "patients_table")
-data class PatientsEntity (
- @PrimaryKey(autoGenerate = true)
- val id:Int,
- val patientName:String,
- val patientGender:String,
- val patientAddress:String,
 
-)

@@ -9,12 +9,12 @@ import androidx.cardview.widget.CardView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hospital_roomdatabase.R
-import com.example.hospital_roomdatabase.Database.HospitalEntity
-import com.example.hospital_roomdatabase.fragment.list.HospitalFragment
+import com.example.hospital_roomdatabase.model.HospitalModel
+import com.example.hospital_roomdatabase.hospital.HospitalFragment
 
-class HospitalAdapter(private val activity: HospitalFragment,val editItemInData:(Int)-> Unit):RecyclerView.Adapter<HospitalAdapter.MyViewHolder>() {
+class HospitalAdapter(private val activity: HospitalFragment, val setHospitalInfo:(HospitalModel)-> Unit):RecyclerView.Adapter<HospitalAdapter.MyViewHolder>() {
 
-   var hospitalList = emptyList<HospitalEntity>()
+   var hospitalList = emptyList<HospitalModel>()
 
 
     inner  class MyViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
@@ -25,20 +25,20 @@ class HospitalAdapter(private val activity: HospitalFragment,val editItemInData:
         var cardView:CardView=itemView.findViewById(R.id.materialCardView)
 
 
-        fun editItem(position: Int){
-            editButton.setOnClickListener {
-                //            // sharedViewModel
-//            val model = ViewModelProvider(activity).get(SharedViewModel::class.java)
-//            model.setHospitalDetails(hospitalList[position])
-                editItemInData(position)
+//        fun editItem(position: Int){
+//            editButton.setOnClickListener {
+//                //            // sharedViewModel
+////            val model = ViewModelProvider(activity).get(SharedViewModel::class.java)
+////            model.setHospitalDetails(hospitalList[position])
+//                editItemInData(position)
 
 
 
                 // navigation action
-            activity.findNavController().navigate(R.id.action_hospitalFragment2_to_editFragment)
-            }
+           // activity.findNavController().navigate(R.id.action_hospitalFragment2_to_editFragment)
+          //  }
 
-        }
+       // }
 
    }
 
@@ -58,7 +58,10 @@ class HospitalAdapter(private val activity: HospitalFragment,val editItemInData:
         val currentItem=hospitalList[position]
         holder.hospitalName.text=currentItem.hospitalName.toString()
         holder.hospitalSpeciality.text=currentItem.speciality.toString()
-        holder.editItem(position)
+        holder.editButton.setOnClickListener {
+            setHospitalInfo(currentItem)
+            activity.findNavController().navigate(R.id.action_hospitalFragment2_to_editFragment)
+        }
 
 //        holder.editButton.setOnClickListener {
 //
@@ -70,16 +73,17 @@ class HospitalAdapter(private val activity: HospitalFragment,val editItemInData:
 //            activity.findNavController().navigate(R.id.action_hospitalFragment2_to_editFragment)
 //        }
         holder.cardView.setOnClickListener {
+            setHospitalInfo(currentItem)
             activity.findNavController().navigate(R.id.action_hospitalFragment2_to_patientsFragment)
         }
     }
 
 
-    fun setData(hospitals:List<HospitalEntity>){
+    fun setData(hospitals:List<HospitalModel>){
         this.hospitalList=hospitals
         notifyItemInserted( hospitalList.size+1)
     }
-    fun getHospital(position : Int) : HospitalEntity{
+    fun getHospital(position : Int) : HospitalModel {
 
         return hospitalList[position]
 

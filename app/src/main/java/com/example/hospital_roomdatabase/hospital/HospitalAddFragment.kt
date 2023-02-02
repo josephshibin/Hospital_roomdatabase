@@ -1,4 +1,4 @@
-package com.example.hospital_roomdatabase.fragment.add
+package com.example.hospital_roomdatabase.hospital
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -12,8 +12,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.hospital_roomdatabase.R
-import com.example.hospital_roomdatabase.Database.HospitalEntity
-import com.example.hospital_roomdatabase.Database.HospitalViewModel
+import com.example.hospital_roomdatabase.model.HospitalModel
+import com.example.hospital_roomdatabase.model.HospitalViewModel
 
 
 class HospitalAddFragment : Fragment() {
@@ -65,7 +65,7 @@ class HospitalAddFragment : Fragment() {
 
       if(isCheck(name,spec,loc)){
           // createing HospitalEntity object
-          val hospital=HospitalEntity(0,name,spec,loc)
+          val hospital= HospitalModel(0,name,spec,loc)
           // adding data to database
           hospitalViewModel.insert(hospital)
           Toast.makeText(context,"data added",Toast.LENGTH_SHORT).show()

@@ -6,7 +6,7 @@
     app:startDestination="@id/hospitalFragment2">
     <fragment
         android:id="@+id/hospitalFragment2"
-        android:name="com.example.hospital_roomdatabase.fragment.list.HospitalFragment"
+        android:name="com.example.hospital_roomdatabase.hospital.HospitalFragment"
         android:label="Hospital"
         tools:layout="@layout/fragment_hospital" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/hospitalAddFragment"
-        android:name="com.example.hospital_roomdatabase.fragment.add.HospitalAddFragment"
+        android:name="com.example.hospital_roomdatabase.hospital.HospitalAddFragment"
         android:label="Add Hospital"
         tools:layout="@layout/fragment_hospital_add" >
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/editFragment"
-        android:name="com.example.hospital_roomdatabase.fragment.edit.UpdateFragment"
+        android:name="com.example.hospital_roomdatabase.hospital.HospitalUpdateFragment"
         android:label="Update" >
         <action
             android:id="@+id/action_editFragment_to_hospitalFragment2"
@@ -39,19 +39,31 @@
     </fragment>
     <fragment
         android:id="@+id/patientsFragment"
-        android:name="com.example.hospital_roomdatabase.fragment.list.PatientsFragment"
+        android:name="com.example.hospital_roomdatabase.patient.PatientsFragment"
         android:label="fragment_patients"
         tools:layout="@layout/fragment_patients" >
         <action
             android:id="@+id/action_patientsFragment_to_patientsAddFragment"
             app:destination="@id/patientsAddFragment" />
+        <action
+            android:id="@+id/action_patientsFragment_to_patientDetailsFragment"
+            app:destination="@id/patientDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/patientsAddFragment"
-        android:name="com.example.hospital_roomdatabase.fragment.add.PatientsAddFragment"
+        android:name="com.example.hospital_roomdatabase.patient.PatientsAddFragment"
         android:label="Add Patients" >
         <action
             android:id="@+id/action_patientsAddFragment_to_patientsFragment"
+            app:destination="@id/patientsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/patientDetailsFragment"
+        android:name="com.example.hospital_roomdatabase.patient.PatientDetailsFragment"
+        android:label="fragment_patient_details"
+        tools:layout="@layout/fragment_patient_details" >
+        <action
+            android:id="@+id/action_patientDetailsFragment_to_patientsFragment"
             app:destination="@id/patientsFragment" />
     </fragment>
 </navigation>
