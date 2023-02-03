@@ -5,25 +5,22 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.hospital_roomdatabase.R
-import com.example.hospital_roomdatabase.model.HospitalModel
 import com.example.hospital_roomdatabase.database.shared_viewmodel.HospitalViewModel
 import com.example.hospital_roomdatabase.database.shared_viewmodel.SharedViewModelForHospital
+import com.example.hospital_roomdatabase.databinding.FragmentEditBinding
+import com.example.hospital_roomdatabase.model.HospitalModel
 import kotlin.properties.Delegates
 
 
 class HospitalUpdateFragment : Fragment() {
-    private lateinit var hospitalName: EditText
-    private lateinit var hospitalLocation: EditText
-    private lateinit var hospitalSpeciality: EditText
-    private lateinit var updateButton: Button
+
+    private lateinit var binding: FragmentEditBinding
 
     private var currentHospitalDataPosition by Delegates.notNull<Int>()
 
@@ -36,26 +33,22 @@ class HospitalUpdateFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_edit, container, false)
-        hospitalName = view.findViewById(R.id.editTextHospitalName)
-        hospitalLocation = view.findViewById(R.id.editTextLocation)
-        hospitalSpeciality = view.findViewById(R.id.editTextSpeciality)
-        updateButton = view.findViewById(R.id.buttonUpdate)
-
+        binding = FragmentEditBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
         //using the view-model
         hospitalViewModel = ViewModelProvider(this)[HospitalViewModel::class.java]
 
         // getting data back from shared view model
         sharedViewModel.currentHospitalDetails.observe(viewLifecycleOwner) {
-            hospitalName.setText(it.hospitalName)
-            hospitalLocation.setText(it.location)
-            hospitalSpeciality.setText(it.speciality)
+            binding.editTextHospitalName.setText(it.hospitalName)
+            binding.editTextLocation.setText(it.location)
+            binding.editTextSpeciality.setText(it.speciality)
             //assigning  the value of id
             currentHospitalDataPosition = it.id
         }
-        updateButton.setOnClickListener {
+        binding.buttonUpdate.setOnClickListener {
             updateHospitalDataToDataBase()
         }
         return view
@@ -63,9 +56,9 @@ class HospitalUpdateFragment : Fragment() {
 
     // Update functionality
     private fun updateHospitalDataToDataBase() {
-        val name = hospitalName.text.toString()
-        val spec = hospitalSpeciality.text.toString()
-        val loc = hospitalLocation.text.toString()
+        val name = binding.editTextHospitalName.text.toString()
+        val spec = binding.editTextLocation.text.toString()
+        val loc = binding.editTextSpeciality.text.toString()
 
         if (isCheck(name, spec, loc)) {
             // creating HospitalModel object

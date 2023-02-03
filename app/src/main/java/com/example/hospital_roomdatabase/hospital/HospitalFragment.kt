@@ -12,15 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hospital_roomdatabase.R
 import com.example.hospital_roomdatabase.adapter.HospitalAdapter
-import com.example.hospital_roomdatabase.model.HospitalModel
 import com.example.hospital_roomdatabase.database.shared_viewmodel.HospitalViewModel
 import com.example.hospital_roomdatabase.database.shared_viewmodel.SharedViewModelForHospital
+import com.example.hospital_roomdatabase.databinding.FragmentHospitalBinding
+import com.example.hospital_roomdatabase.model.HospitalModel
 
 
 class HospitalFragment : Fragment() {
     // initializing the view model
+    private lateinit var binding: FragmentHospitalBinding
     private lateinit var hospitalViewModel: HospitalViewModel
-    private lateinit var recyclerView: RecyclerView
 
     // initializing shared view model
     private val sharedViewModel: SharedViewModelForHospital by activityViewModels()
@@ -28,13 +29,14 @@ class HospitalFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_hospital, container, false)
+        binding = FragmentHospitalBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
 
         //RecyclerView
         val adapter = HospitalAdapter(this) { index -> setHospitalInfo(index) }
-        recyclerView = view.findViewById(R.id.recyclerView)
+        val recyclerView = binding.recyclerView
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = adapter

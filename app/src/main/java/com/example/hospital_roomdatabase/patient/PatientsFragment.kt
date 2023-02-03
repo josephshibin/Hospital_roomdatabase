@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -19,6 +17,7 @@ import com.example.hospital_roomdatabase.adapter.PatientsAdapter
 import com.example.hospital_roomdatabase.database.shared_viewmodel.PatientViewModel
 import com.example.hospital_roomdatabase.database.shared_viewmodel.SharedViewModelForHospital
 import com.example.hospital_roomdatabase.database.shared_viewmodel.SharedViewModelForPatient
+import com.example.hospital_roomdatabase.databinding.FragmentPatientsBinding
 import com.example.hospital_roomdatabase.model.PatientModel
 import kotlin.properties.Delegates
 
@@ -27,10 +26,7 @@ class PatientsFragment : Fragment() {
 
     // initializing the view model
     private lateinit var patientsViewModel: PatientViewModel
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var hospitalSpeciality: TextView
-    private lateinit var hospitalLocation: TextView
-    private lateinit var addPatient: Button
+    private lateinit var binding: FragmentPatientsBinding
     private lateinit var titleOfThisFragment: String
     private var hospitalId by Delegates.notNull<Int>()
 
@@ -40,20 +36,19 @@ class PatientsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_patients, container, false)
+        binding = FragmentPatientsBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
 
-        hospitalLocation = view.findViewById(R.id.textViewHospitalLocation)
-        hospitalSpeciality = view.findViewById(R.id.textViewHospitalSpeciality)
-        addPatient = view.findViewById(R.id.buttonAdd)
-        addPatient.setOnClickListener {
+
+        val recyclerView = binding.recyclerViewOfPatients
+        binding.buttonAdd.setOnClickListener {
             view.findNavController().navigate(R.id.action_patientsFragment_to_patientsAddFragment)
         }
         //RecyclerView
         val adapter = PatientsAdapter(this) { currentItem -> setPatientInfo(currentItem) }
-        recyclerView = view.findViewById(R.id.recyclerViewOfPatients)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
@@ -73,12 +68,11 @@ class PatientsFragment : Fragment() {
             viewLifecycleOwner
         ) {
             hospitalId = it.id
-            hospitalLocation.text = it.location
-            hospitalSpeciality.text = it.speciality
+            binding.textViewHospitalLocation.text = it.location
+            binding.textViewHospitalSpeciality.text = it.speciality
             titleOfThisFragment = it.hospitalName
             (activity as AppCompatActivity).supportActionBar?.title = titleOfThisFragment
         }
-
 
         // delete by sliding
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
