@@ -1,15 +1,13 @@
 package com.example.hospital_roomdatabase.patient
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import com.example.hospital_roomdatabase.R
 import com.example.hospital_roomdatabase.databinding.FragmentPatientDetailsBinding
-import com.example.hospital_roomdatabase.model.SharedViewModelForPatient
+import com.example.hospital_roomdatabase.database.shared_viewmodel.SharedViewModelForPatient
 
 
 class PatientDetailsFragment : Fragment() {
@@ -19,22 +17,16 @@ class PatientDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding= FragmentPatientDetailsBinding.inflate(layoutInflater, container, false)
-        val view=binding.root
+        binding = FragmentPatientDetailsBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
 
-        sharedViewModel.currentPatientsDetails.observe(viewLifecycleOwner, Observer { it ->
-            binding.textViewPatientsName.text=it.patientName
-            binding.textViewPatientsGender.text=it.patientGender
-            binding.textViewPatientAddress.text=it.patientAddress
-        })
-
-
-
-
-        return  view
+        sharedViewModel.currentPatientsDetails.observe(viewLifecycleOwner) {
+            binding.textViewPatientsName.text = it.patientName
+            binding.textViewPatientsGender.text = it.patientGender
+            binding.textViewPatientAddress.text = it.patientAddress
+        }
+        return view
     }
-
-
 }

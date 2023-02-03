@@ -9,7 +9,7 @@ import com.example.hospital_roomdatabase.model.HospitalModel
 @Dao
 interface HospitalDAO {
 
-    @Insert()
+    @Insert
     suspend fun insert(hospital: HospitalModel)
 
     @Delete
@@ -22,6 +22,6 @@ interface HospitalDAO {
     suspend fun deleteAllHospitals()
 
     @Query("SELECT * FROM hospital_table ORDER BY id ASC ")
-    fun readAllData():LiveData<List<HospitalModel>>
+    fun readAllData(): LiveData<List<HospitalModel>>
 }
 

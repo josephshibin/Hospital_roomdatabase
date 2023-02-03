@@ -44,8 +44,8 @@ class HospitalAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentItem = hospitalList[position]
-        holder.hospitalName.text = currentItem.hospitalName.toString()
-        holder.hospitalSpeciality.text = currentItem.speciality.toString()
+        holder.hospitalName.text = currentItem.hospitalName
+        holder.hospitalSpeciality.text = currentItem.speciality
         holder.editButton.setOnClickListener {
             setHospitalInfo(currentItem)
             activity.findNavController().navigate(R.id.action_hospitalFragment2_to_editFragment)
@@ -61,7 +61,6 @@ class HospitalAdapter(
 
     fun setHospital(hospitals: List<HospitalModel>) {
         this.hospitalList = hospitals
-        //notifyItemInserted(hospitalList.size + 1)
         notifyDataSetChanged()
     }
 

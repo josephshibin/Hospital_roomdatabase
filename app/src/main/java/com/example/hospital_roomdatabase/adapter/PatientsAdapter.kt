@@ -14,27 +14,23 @@ import com.example.hospital_roomdatabase.R
 import com.example.hospital_roomdatabase.model.PatientModel
 import com.example.hospital_roomdatabase.patient.PatientsFragment
 
+class PatientsAdapter(
+    private val activity: PatientsFragment,
+    val setPatientInfo: (PatientModel) -> Unit
+) : RecyclerView.Adapter<PatientsAdapter.MyViewHolder>() {
 
-class PatientsAdapter(private val activity: PatientsFragment, val  setPatientInfo:(PatientModel)->Unit): RecyclerView.Adapter<PatientsAdapter.MyViewHolder>() {
+    private var patientsList = emptyList<PatientModel>()
 
-    var patientsList = emptyList<PatientModel>()
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-
-    inner  class MyViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-
-        var patientName: TextView =itemView.findViewById(R.id.textViewPatientsName)
-        var cardView: CardView =itemView.findViewById(R.id.cardViewForPatients)
-
-
-
-
-
+        var patientName: TextView = itemView.findViewById(R.id.textViewPatientsName)
+        var cardView: CardView = itemView.findViewById(R.id.cardViewForPatients)
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view : View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.patientlistview,parent,false)
+        val view: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.patientlistview, parent, false)
 
         return MyViewHolder(view)
     }
@@ -45,33 +41,24 @@ class PatientsAdapter(private val activity: PatientsFragment, val  setPatientInf
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val currentItem=patientsList[position]
-        holder.patientName.text=currentItem.patientName.toString()
+        val currentItem = patientsList[position]
+        holder.patientName.text = currentItem.patientName
         holder.cardView.setOnClickListener {
 
             setPatientInfo(currentItem)
 
-            activity.findNavController().navigate(R.id.action_patientsFragment_to_patientDetailsFragment)
+            activity.findNavController()
+                .navigate(R.id.action_patientsFragment_to_patientDetailsFragment)
 
         }
-
-
-
-
-
     }
 
-
-    fun setPatients(patient:List<PatientModel>){
-        this.patientsList=patient
-       // notifyItemInserted( patientsList.size)
+    fun setPatients(patient: List<PatientModel>) {
+        this.patientsList = patient
         notifyDataSetChanged()
     }
 
-    fun getPatients(position : Int) : PatientModel {
-
-
+    fun getPatients(position: Int): PatientModel {
         return patientsList[position]
-
     }
 }

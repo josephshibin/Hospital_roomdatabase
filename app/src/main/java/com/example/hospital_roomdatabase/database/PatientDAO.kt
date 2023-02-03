@@ -11,7 +11,7 @@ import com.example.hospital_roomdatabase.model.PatientModel
 @Dao
 interface PatientDAO {
 
-    @Insert()
+    @Insert
     suspend fun insert(patients: PatientModel)
 
     @Delete

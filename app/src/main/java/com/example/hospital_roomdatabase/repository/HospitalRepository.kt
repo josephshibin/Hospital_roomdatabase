@@ -23,11 +23,9 @@ class HospitalRepository(private val hospitalDao: HospitalDAO) {
         hospitalDao.deleteAllHospitals()
     }
 
-
     suspend fun update(hospital: HospitalModel) {
         hospitalDao.update(hospital)
     }
-
 
 }
 
