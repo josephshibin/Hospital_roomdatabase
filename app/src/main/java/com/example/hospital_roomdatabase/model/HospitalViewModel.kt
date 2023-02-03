@@ -19,7 +19,8 @@ class HospitalViewModel(application: Application) : AndroidViewModel(application
         readAllData = repository.allHospitals
     }
 
-    fun insert(hospital: HospitalModel) = viewModelScope.launch(Dispatchers.IO) {
+    fun insert(hospitalName:String,hospitalSpeciality:String,hospitalLocation:String) = viewModelScope.launch(Dispatchers.IO) {
+        val hospital=HospitalModel(0,hospitalName,hospitalSpeciality,hospitalLocation)
         repository.insert(hospital)
     }
 

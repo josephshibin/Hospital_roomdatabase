@@ -44,7 +44,7 @@ class HospitalFragment : Fragment() {
 //        //RecyclerView
         val adapter=HospitalAdapter(this){index-> setHospitalInfo(index)}
         recyclerView=view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(context);
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter=adapter
 
 
@@ -52,7 +52,7 @@ class HospitalFragment : Fragment() {
         //useing the viewmodel
         hospitalViewModel = ViewModelProvider(this).get(HospitalViewModel::class.java)
         hospitalViewModel.readAllData.observe(viewLifecycleOwner, Observer { hospitals->
-            adapter.setData(hospitals)
+            adapter.setHospital(hospitals)
         })
 
 
@@ -70,7 +70,8 @@ class HospitalFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
                 hospitalViewModel .delete(adapter.getHospital(viewHolder.adapterPosition))
-                adapter.notifyItemRemoved(viewHolder.adapterPosition)
+               adapter.notifyItemRemoved(viewHolder.adapterPosition)
+
 
             }
 

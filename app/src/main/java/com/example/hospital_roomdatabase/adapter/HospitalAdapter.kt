@@ -12,52 +12,40 @@ import com.example.hospital_roomdatabase.R
 import com.example.hospital_roomdatabase.model.HospitalModel
 import com.example.hospital_roomdatabase.hospital.HospitalFragment
 
-class HospitalAdapter(private val activity: HospitalFragment, val setHospitalInfo:(HospitalModel)-> Unit):RecyclerView.Adapter<HospitalAdapter.MyViewHolder>() {
+class HospitalAdapter(
+    private val activity: HospitalFragment,
+    val setHospitalInfo: (HospitalModel) -> Unit
+) : RecyclerView.Adapter<HospitalAdapter.MyViewHolder>() {
 
-   var hospitalList = emptyList<HospitalModel>()
-
-
-    inner  class MyViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-
-        var hospitalName:TextView=itemView.findViewById(R.id.textViewHospitalName)
-        var hospitalSpeciality:TextView=itemView.findViewById(R.id.textViewHospitalSpeciality)
-        var editButton:Button=itemView.findViewById(R.id.buttonEdit)
-        var cardView:CardView=itemView.findViewById(R.id.materialCardView)
+    var hospitalList = emptyList<HospitalModel>()
 
 
-//        fun editItem(position: Int){
-//            editButton.setOnClickListener {
-//                //            // sharedViewModel
-////            val model = ViewModelProvider(activity).get(SharedViewModel::class.java)
-////            model.setHospitalDetails(hospitalList[position])
-//                editItemInData(position)
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        var hospitalName: TextView = itemView.findViewById(R.id.textViewHospitalName)
+        var hospitalSpeciality: TextView = itemView.findViewById(R.id.textViewHospitalSpeciality)
+        var editButton: Button = itemView.findViewById(R.id.buttonEdit)
+        var cardView: CardView = itemView.findViewById(R.id.materialCardView)
 
 
-
-                // navigation action
-           // activity.findNavController().navigate(R.id.action_hospitalFragment2_to_editFragment)
-          //  }
-
-       // }
-
-   }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view : View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.hospitalitemview,parent,false)
+        val view: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.hospitalitemview, parent, false)
 
         return MyViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-       return  hospitalList.size
+        return hospitalList.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val currentItem=hospitalList[position]
-        holder.hospitalName.text=currentItem.hospitalName.toString()
-        holder.hospitalSpeciality.text=currentItem.speciality.toString()
+        val currentItem = hospitalList[position]
+        holder.hospitalName.text = currentItem.hospitalName.toString()
+        holder.hospitalSpeciality.text = currentItem.speciality.toString()
         holder.editButton.setOnClickListener {
             setHospitalInfo(currentItem)
             activity.findNavController().navigate(R.id.action_hospitalFragment2_to_editFragment)
@@ -79,11 +67,13 @@ class HospitalAdapter(private val activity: HospitalFragment, val setHospitalInf
     }
 
 
-    fun setData(hospitals:List<HospitalModel>){
-        this.hospitalList=hospitals
-        notifyItemInserted( hospitalList.size+1)
+    fun setHospital(hospitals: List<HospitalModel>) {
+        this.hospitalList = hospitals
+        notifyItemInserted(hospitalList.size + 1)
     }
-    fun getHospital(position : Int) : HospitalModel {
+
+    fun getHospital(position: Int): HospitalModel {
+
 
         return hospitalList[position]
 

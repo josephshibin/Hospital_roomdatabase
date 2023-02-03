@@ -12,8 +12,8 @@ import com.example.hospital_roomdatabase.databinding.FragmentPatientDetailsBindi
 import com.example.hospital_roomdatabase.model.SharedViewModelForPatient
 
 
-class PatientsDetailsFragment : Fragment() {
-    private lateinit var binding:FragmentPatientDetailsBinding
+class PatientDetailsFragment : Fragment() {
+    private lateinit var binding: FragmentPatientDetailsBinding
     private val sharedViewModel: SharedViewModelForPatient by activityViewModels()
 
     override fun onCreateView(
@@ -24,11 +24,11 @@ class PatientsDetailsFragment : Fragment() {
         binding= FragmentPatientDetailsBinding.inflate(layoutInflater, container, false)
         val view=binding.root
 
-//        sharedViewModel.currentPatientsDetails.observe(viewLifecycleOwner, Observer { it ->
-//            binding.textViewPatientsName.text=it.patientName
-//            binding.textViewPatientsGender.text=it.patientGender
-//            binding.textViewPatientAddress.text=it.patientAddress
-//        })
+        sharedViewModel.currentPatientsDetails.observe(viewLifecycleOwner, Observer { it ->
+            binding.textViewPatientsName.text=it.patientName
+            binding.textViewPatientsGender.text=it.patientGender
+            binding.textViewPatientAddress.text=it.patientAddress
+        })
 
 
 

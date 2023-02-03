@@ -18,11 +18,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hospital_roomdatabase.R
 import com.example.hospital_roomdatabase.adapter.PatientsAdapter
 import com.example.hospital_roomdatabase.model.*
+import kotlin.properties.Delegates
 
 
 class PatientsFragment : Fragment() {
 
-    // intializing the view model
+    // initializing the view model
     private  lateinit var patientsViewModel: PatientViewModel
 
 
@@ -32,8 +33,9 @@ class PatientsFragment : Fragment() {
     private lateinit var  hospitalLocation:TextView
     private lateinit var addPatient:Button
     private lateinit var titleOfThisFragment:String
+    private var hospitalId by Delegates.notNull<Int>()
 
-    //creating a instance of sharedViewmodel class
+    //creating a instance of sharedView model class
     private val sharedViewModelForHospital: SharedViewModelForHospital by activityViewModels()
     private val sharedViewModelForPatient: SharedViewModelForPatient by activityViewModels()
 
@@ -55,20 +57,24 @@ class PatientsFragment : Fragment() {
         //RecyclerView
         val adapter=PatientsAdapter(this){currentItem -> setPatientInfo(currentItem)}
         recyclerView=view.findViewById(R.id.recyclerViewOfPatients)
-        recyclerView.layoutManager = LinearLayoutManager(context);
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter=adapter
 
 
         //patientViewModel (database)
-        //useing the viewmodel
+        //using the view-model
         patientsViewModel = ViewModelProvider(this).get(PatientViewModel::class.java)
-       patientsViewModel.readAllData.observe(viewLifecycleOwner, Observer {
-           adapter.setData(it)
+       patientsViewModel.readAllData.observe(viewLifecycleOwner, Observer {it ->
+           //adapter.setPatients(it)
+           //creating a filtered list of patients to match with hospital id
+           val filteredListOfPatients=it.filter { it.hospitalId== hospitalId}
+           adapter.setPatients(filteredListOfPatients)
        })
 
 
         // get data from shared view model
         sharedViewModelForHospital.currentHospitalDetails.observe(viewLifecycleOwner, Observer { it->
+            hospitalId=it.id
             hospitalLocation.text=it.location.toString()
             hospitalSpeciality.text=it.speciality.toString()
             titleOfThisFragment=it.hospitalName.toString()
@@ -94,6 +100,7 @@ class PatientsFragment : Fragment() {
 
                 patientsViewModel .delete(adapter.getPatients(viewHolder.adapterPosition))
                 adapter.notifyItemRemoved(viewHolder.adapterPosition)
+
 
             }
 

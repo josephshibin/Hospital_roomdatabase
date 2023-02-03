@@ -19,7 +19,8 @@ class PatientViewModel(application: Application) : AndroidViewModel(application)
         repository= PatientRepository(patientDAO)
         readAllData=repository.allPatients
     }
-    fun insert(patient : PatientModel) = viewModelScope.launch(Dispatchers.IO){
+    fun insert(patient: PatientModel) = viewModelScope.launch(Dispatchers.IO){
+       // val patient=PatientModel(0,patientName,patientGender,patientAddress,)
         repository.insert(patient)
     }
     fun delete(patient : PatientModel) = viewModelScope.launch(Dispatchers.IO){
