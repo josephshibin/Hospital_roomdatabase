@@ -5,7 +5,7 @@ import com.example.hospital_roomdatabase.database.PatientDAO
 import com.example.hospital_roomdatabase.model.PatientModel
 
 
-class PatientRepository(private val patientsDao : PatientDAO) {
+class PatientRepository(private val patientsDao: PatientDAO) {
 
     val allPatients: LiveData<List<PatientModel>> = patientsDao.readAllData()
 
@@ -14,7 +14,7 @@ class PatientRepository(private val patientsDao : PatientDAO) {
         patientsDao.insert(patients)
     }
 
-    suspend fun delete(patients : PatientModel){
+    suspend fun delete(patients: PatientModel) {
         patientsDao.delete(patients)
     }
 }

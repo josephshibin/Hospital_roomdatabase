@@ -65,9 +65,9 @@ class HospitalAddFragment : Fragment() {
 
       if(isCheck(name,spec,loc)){
           // createing HospitalEntity object
-         // val hospital= HospitalModel(0,name,spec,loc)
+          val hospital= HospitalModel(name,spec,loc)
           // adding data to database
-          hospitalViewModel.insert(name,spec,loc)
+          hospitalViewModel.insert(hospital)
           Toast.makeText(context,"data added",Toast.LENGTH_SHORT).show()
           view?.findNavController()?.navigate(R.id.action_hospitalAddFragment_to_hospitalFragment2)
       }

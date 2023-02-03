@@ -9,15 +9,15 @@ import androidx.cardview.widget.CardView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hospital_roomdatabase.R
-import com.example.hospital_roomdatabase.model.HospitalModel
 import com.example.hospital_roomdatabase.hospital.HospitalFragment
+import com.example.hospital_roomdatabase.model.HospitalModel
 
 class HospitalAdapter(
     private val activity: HospitalFragment,
     val setHospitalInfo: (HospitalModel) -> Unit
 ) : RecyclerView.Adapter<HospitalAdapter.MyViewHolder>() {
 
-    var hospitalList = emptyList<HospitalModel>()
+    private var hospitalList = emptyList<HospitalModel>()
 
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -51,15 +51,7 @@ class HospitalAdapter(
             activity.findNavController().navigate(R.id.action_hospitalFragment2_to_editFragment)
         }
 
-//        holder.editButton.setOnClickListener {
-//
-//            // sharedViewModel
-//            val model = ViewModelProvider(activity).get(SharedViewModel::class.java)
-//            model.setHospitalDetails(currentItem)
-//
-//           // navigation action
-//            activity.findNavController().navigate(R.id.action_hospitalFragment2_to_editFragment)
-//        }
+
         holder.cardView.setOnClickListener {
             setHospitalInfo(currentItem)
             activity.findNavController().navigate(R.id.action_hospitalFragment2_to_patientsFragment)
@@ -69,7 +61,8 @@ class HospitalAdapter(
 
     fun setHospital(hospitals: List<HospitalModel>) {
         this.hospitalList = hospitals
-        notifyItemInserted(hospitalList.size + 1)
+        //notifyItemInserted(hospitalList.size + 1)
+        notifyDataSetChanged()
     }
 
     fun getHospital(position: Int): HospitalModel {

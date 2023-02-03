@@ -2,7 +2,6 @@ package com.example.hospital_roomdatabase.hospital
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +17,7 @@ import com.example.hospital_roomdatabase.R
 import com.example.hospital_roomdatabase.model.HospitalModel
 import com.example.hospital_roomdatabase.model.HospitalViewModel
 import com.example.hospital_roomdatabase.model.SharedViewModelForHospital
+import kotlin.properties.Delegates
 
 
 class HospitalUpdateFragment : Fragment() {
@@ -27,9 +27,7 @@ class HospitalUpdateFragment : Fragment() {
     lateinit var updateButton: Button
 
 
-    var currentHospitalDataPosition=-1
-
-
+    private var currentHospitalDataPosition by Delegates.notNull<Int>()
 
 
     // intializing the view model
@@ -38,7 +36,7 @@ class HospitalUpdateFragment : Fragment() {
 
 
 
-    //creating a instance of sharedViewmodel class
+    //creating a instance of sharedView model class
     private val sharedViewModel: SharedViewModelForHospital by activityViewModels()
 
 
@@ -53,7 +51,7 @@ class HospitalUpdateFragment : Fragment() {
         hospitalLocation=view.findViewById(R.id.editTextLocation)
         hospitalSpeciality=view.findViewById(R.id.editTextSpeciality)
         updateButton=view.findViewById(R.id.buttonUpdate)
-        Log.i("hi","fdsf")
+       // Log.i("hi","fdsf")
 
         //useing the viewmodel
         hospitalViewModel = ViewModelProvider(this).get(HospitalViewModel::class.java)
@@ -72,22 +70,26 @@ class HospitalUpdateFragment : Fragment() {
         })
 
         updateButton.setOnClickListener {
-            updateHopitalDataToDataBase()
+            updateHospitalDataToDataBase()
         }
 
 
         return  view
     }
-    fun updateHopitalDataToDataBase(){
+    // Update functionality
+    private fun updateHospitalDataToDataBase(){
         val name=hospitalName.text.toString()
         val spec=hospitalSpeciality.text.toString()
         val loc=hospitalLocation.text.toString()
 
         if(isCheck(name,spec,loc)){
-            // createing HospitalEntity object
-            val hospital=HospitalModel(currentHospitalDataPosition,name,spec,loc)
+            // creating HospitalModel object
+            val updatedHospital=HospitalModel(name,spec,loc)
+            //assigning the id of current item to new instance(updatedHospital)
+            updatedHospital.id=currentHospitalDataPosition
+
             // adding data to database
-            hospitalViewModel.update(hospital)
+            hospitalViewModel.update(updatedHospital)
             Toast.makeText(context,"data updated", Toast.LENGTH_SHORT).show()
             view?.findNavController()?.navigate(R.id.action_editFragment_to_hospitalFragment2)
         }

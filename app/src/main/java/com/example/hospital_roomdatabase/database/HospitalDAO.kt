@@ -18,6 +18,9 @@ interface HospitalDAO {
     @Update
     suspend fun update(hospital: HospitalModel)
 
+    @Query("DELETE FROM hospital_table")
+    suspend fun deleteAllHospitals()
+
     @Query("SELECT * FROM hospital_table ORDER BY id ASC ")
     fun readAllData():LiveData<List<HospitalModel>>
 }

@@ -62,9 +62,10 @@ class PatientsAdapter(private val activity: PatientsFragment, val  setPatientInf
     }
 
 
-    fun setPatients(hospital:List<PatientModel>){
-        this.patientsList=hospital
-        notifyItemInserted( patientsList.size+1)
+    fun setPatients(patient:List<PatientModel>){
+        this.patientsList=patient
+       // notifyItemInserted( patientsList.size)
+        notifyDataSetChanged()
     }
 
     fun getPatients(position : Int) : PatientModel {

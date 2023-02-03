@@ -19,12 +19,13 @@ import com.example.hospital_roomdatabase.model.PatientModel
 
 import com.example.hospital_roomdatabase.model.PatientViewModel
 import com.example.hospital_roomdatabase.model.SharedViewModelForHospital
+import kotlin.properties.Delegates
 
 class PatientsAddFragment : Fragment() {
 
-    //creating a instance of sharedViewmodel class
+    //creating a instance of sharedView model class
     private val sharedViewModelForHospital: SharedViewModelForHospital by activityViewModels()
-    var hospitalId=-1
+    private var hospitalId by Delegates.notNull<Int>()
 
     private  lateinit var patientViewModel: PatientViewModel
 
@@ -44,7 +45,7 @@ class PatientsAddFragment : Fragment() {
         patientAddress=view.findViewById(R.id.editTextAddress)
         addButton=view.findViewById(R.id.buttonPatientsAdd)
 
-        //geting the hospital id from sharedviewmodel of hospital
+        //getting the hospital id from shareholder of hospital
         sharedViewModelForHospital.currentHospitalDetails.observe(viewLifecycleOwner, Observer { it->
             hospitalId=it.id
         })
@@ -66,7 +67,7 @@ class PatientsAddFragment : Fragment() {
         val address= patientAddress.text.toString()
 
         if(isCheck(name,gender,address)){
-            // createing HospitalEntity object
+            // creating HospitalEntity object
              val patient= PatientModel(0,name,gender,address,hospitalId)
             // adding data to database
             patientViewModel.insert(patient)

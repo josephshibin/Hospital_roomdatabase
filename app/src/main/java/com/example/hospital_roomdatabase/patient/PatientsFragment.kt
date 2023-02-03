@@ -1,13 +1,13 @@
 package com.example.hospital_roomdatabase.patient
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,22 +17,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hospital_roomdatabase.R
 import com.example.hospital_roomdatabase.adapter.PatientsAdapter
-import com.example.hospital_roomdatabase.model.*
+import com.example.hospital_roomdatabase.model.PatientModel
+import com.example.hospital_roomdatabase.model.PatientViewModel
+import com.example.hospital_roomdatabase.model.SharedViewModelForHospital
+import com.example.hospital_roomdatabase.model.SharedViewModelForPatient
 import kotlin.properties.Delegates
 
 
 class PatientsFragment : Fragment() {
 
     // initializing the view model
-    private  lateinit var patientsViewModel: PatientViewModel
-
+    private lateinit var patientsViewModel: PatientViewModel
 
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var hospitalSpeciality: TextView
-    private lateinit var  hospitalLocation:TextView
-    private lateinit var addPatient:Button
-    private lateinit var titleOfThisFragment:String
+    private lateinit var hospitalLocation: TextView
+    private lateinit var addPatient: Button
+    private lateinit var titleOfThisFragment: String
     private var hospitalId by Delegates.notNull<Int>()
 
     //creating a instance of sharedView model class
@@ -41,64 +43,63 @@ class PatientsFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
         // Inflate the layout for this fragment
-       val view = inflater.inflate(R.layout.fragment_patients, container, false)
+        val view = inflater.inflate(R.layout.fragment_patients, container, false)
 
-        hospitalLocation=view.findViewById(R.id.textViewHospitalLocation)
-        hospitalSpeciality=view.findViewById(R.id.textViewHospitalSpeciality)
-        addPatient=view.findViewById(R.id.buttonAdd)
+        hospitalLocation = view.findViewById(R.id.textViewHospitalLocation)
+        hospitalSpeciality = view.findViewById(R.id.textViewHospitalSpeciality)
+        addPatient = view.findViewById(R.id.buttonAdd)
         addPatient.setOnClickListener {
             view.findNavController().navigate(R.id.action_patientsFragment_to_patientsAddFragment)
         }
         //RecyclerView
-        val adapter=PatientsAdapter(this){currentItem -> setPatientInfo(currentItem)}
-        recyclerView=view.findViewById(R.id.recyclerViewOfPatients)
+        val adapter = PatientsAdapter(this) { currentItem -> setPatientInfo(currentItem) }
+        recyclerView = view.findViewById(R.id.recyclerViewOfPatients)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter=adapter
+        recyclerView.adapter = adapter
 
 
         //patientViewModel (database)
         //using the view-model
         patientsViewModel = ViewModelProvider(this).get(PatientViewModel::class.java)
-       patientsViewModel.readAllData.observe(viewLifecycleOwner, Observer {it ->
-           //adapter.setPatients(it)
-           //creating a filtered list of patients to match with hospital id
-           val filteredListOfPatients=it.filter { it.hospitalId== hospitalId}
-           adapter.setPatients(filteredListOfPatients)
-       })
-
-
-        // get data from shared view model
-        sharedViewModelForHospital.currentHospitalDetails.observe(viewLifecycleOwner, Observer { it->
-            hospitalId=it.id
-            hospitalLocation.text=it.location.toString()
-            hospitalSpeciality.text=it.speciality.toString()
-            titleOfThisFragment=it.hospitalName.toString()
-            (activity as AppCompatActivity).supportActionBar?.title=titleOfThisFragment
+        patientsViewModel.readAllData.observe(viewLifecycleOwner, Observer { it ->
+            //adapter.setPatients(it)
+            //creating a filtered list of patients to match with hospital id
+            val filteredListOfPatients = it.filter { it.hospitalId == hospitalId }
+            adapter.setPatients(filteredListOfPatients)
         })
 
 
-
+        // get data from shared view model
+        sharedViewModelForHospital.currentHospitalDetails.observe(
+            viewLifecycleOwner,
+            Observer { it ->
+                hospitalId = it.id
+                hospitalLocation.text = it.location.toString()
+                hospitalSpeciality.text = it.speciality.toString()
+                titleOfThisFragment = it.hospitalName.toString()
+                (activity as AppCompatActivity).supportActionBar?.title = titleOfThisFragment
+            })
 
 
         // delete by sliding
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0
-            , ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                TODO("Not yet implemented")
+                return false
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
-                patientsViewModel .delete(adapter.getPatients(viewHolder.adapterPosition))
+                patientsViewModel.delete(adapter.getPatients(viewHolder.adapterPosition))
                 adapter.notifyItemRemoved(viewHolder.adapterPosition)
 
 
@@ -106,7 +107,7 @@ class PatientsFragment : Fragment() {
 
         }).attachToRecyclerView(recyclerView)
 
-        return  view
+        return view
     }
 
 

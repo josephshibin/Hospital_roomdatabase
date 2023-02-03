@@ -19,13 +19,17 @@ class HospitalViewModel(application: Application) : AndroidViewModel(application
         readAllData = repository.allHospitals
     }
 
-    fun insert(hospitalName:String,hospitalSpeciality:String,hospitalLocation:String) = viewModelScope.launch(Dispatchers.IO) {
-        val hospital=HospitalModel(0,hospitalName,hospitalSpeciality,hospitalLocation)
+    fun insert(hospital: HospitalModel) = viewModelScope.launch(Dispatchers.IO) {
+        // val hospital=HospitalModel(0,hospitalName,hospitalSpeciality,hospitalLocation)
         repository.insert(hospital)
     }
 
     fun delete(hospital: HospitalModel) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(hospital)
+    }
+
+    fun deleteAllHospitals() = viewModelScope.launch(Dispatchers.IO){
+        repository.deleteAllHospitals()
     }
 
     fun update(hospital: HospitalModel) = viewModelScope.launch(Dispatchers.IO) {
