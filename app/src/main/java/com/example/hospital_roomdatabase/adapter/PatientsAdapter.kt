@@ -53,9 +53,9 @@ class PatientsAdapter(
         }
     }
 
-    fun setPatients(patient: List<PatientModel>) {
-        this.patientsList = patient
-        notifyDataSetChanged()
+    fun setPatients(patients: List<PatientModel>) {
+        this.patientsList = patients
+         notifyDataSetChanged()
     }
 
     fun getPatients(position: Int): PatientModel {
