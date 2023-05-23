@@ -12,8 +12,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.hospital_roomdatabase.R
-import com.example.hospital_roomdatabase.database.shared_viewmodel.PatientViewModel
-import com.example.hospital_roomdatabase.database.shared_viewmodel.SharedViewModelForHospital
+import com.example.hospital_roomdatabase.shared_viewmodel.PatientViewModel
+import com.example.hospital_roomdatabase.shared_viewmodel.SharedViewModelForHospital
 import com.example.hospital_roomdatabase.databinding.FragmentPatientsAddBinding
 import com.example.hospital_roomdatabase.model.PatientModel
 import kotlin.properties.Delegates

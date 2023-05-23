@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.hospital_roomdatabase.databinding.FragmentPatientDetailsBinding
-import com.example.hospital_roomdatabase.database.shared_viewmodel.SharedViewModelForPatient
+import com.example.hospital_roomdatabase.shared_viewmodel.SharedViewModelForPatient
 
 
 class PatientDetailsFragment : Fragment() {

@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hospital_roomdatabase.R
 import com.example.hospital_roomdatabase.adapter.HospitalAdapter
-import com.example.hospital_roomdatabase.database.shared_viewmodel.HospitalViewModel
-import com.example.hospital_roomdatabase.database.shared_viewmodel.SharedViewModelForHospital
+import com.example.hospital_roomdatabase.shared_viewmodel.HospitalViewModel
+import com.example.hospital_roomdatabase.shared_viewmodel.SharedViewModelForHospital
 import com.example.hospital_roomdatabase.databinding.FragmentHospitalBinding
 import com.example.hospital_roomdatabase.model.HospitalModel
 
@@ -74,26 +74,26 @@ class HospitalFragment : Fragment() {
     // below to over ride function is to view the menu option
     // on the action bar
     @Deprecated("Deprecated in Java")
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu, menu)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when (item.itemId) {
-
-            R.id.hospitalAddFragment -> {
-                view?.findNavController()
-                    ?.navigate(R.id.action_hospitalFragment2_to_hospitalAddFragment)
-            }
-            R.id.deleteAll -> showDialogMessage()
-
+        override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+            super.onCreateOptionsMenu(menu, inflater)
+            inflater.inflate(R.menu.menu, menu)
         }
 
-        return true
-    }
+        @Deprecated("Deprecated in Java")
+        override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+            when (item.itemId) {
+
+                R.id.hospitalAddFragment -> {
+                    view?.findNavController()
+                        ?.navigate(R.id.action_hospitalFragment2_to_hospitalAddFragment)
+                }
+                R.id.deleteAll -> showDialogMessage()
+
+            }
+
+            return true
+        }
 
     private fun showDialogMessage() {
         val dialogMessage = AlertDialog.Builder(requireContext())

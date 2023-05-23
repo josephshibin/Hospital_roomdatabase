@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.hospital_roomdatabase.R
-import com.example.hospital_roomdatabase.database.shared_viewmodel.HospitalViewModel
+import com.example.hospital_roomdatabase.shared_viewmodel.HospitalViewModel
 import com.example.hospital_roomdatabase.databinding.FragmentHospitalAddBinding
 import com.example.hospital_roomdatabase.model.HospitalModel
 

@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hospital_roomdatabase.R
 import com.example.hospital_roomdatabase.adapter.PatientsAdapter
-import com.example.hospital_roomdatabase.database.shared_viewmodel.PatientViewModel
-import com.example.hospital_roomdatabase.database.shared_viewmodel.SharedViewModelForHospital
-import com.example.hospital_roomdatabase.database.shared_viewmodel.SharedViewModelForPatient
+import com.example.hospital_roomdatabase.shared_viewmodel.PatientViewModel
+import com.example.hospital_roomdatabase.shared_viewmodel.SharedViewModelForHospital
+import com.example.hospital_roomdatabase.shared_viewmodel.SharedViewModelForPatient
 import com.example.hospital_roomdatabase.databinding.FragmentPatientsBinding
 import com.example.hospital_roomdatabase.model.PatientModel
 import kotlin.properties.Delegates
